@@ -1,0 +1,8 @@
+
+https://www.microsoft.com/en-gb/software-download
+
+https://www.7-zip.org/download.html
+
+dism /Get-WimInfo /WimFile:install.esd
+
+dism /export-image /SourceImageFile:install.esd /SourceIndex:6 /DestinationImageFile:E:\WDS\Images\Windows11Default\Windows112025\windows11pro.wim /Compress:max /CheckIntegrity
