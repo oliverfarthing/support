@@ -1,5 +1,4 @@
-﻿# Authenticate to Microsoft Graph
-Connect-MgGraph -Scopes "User.Read.All", "Directory.Read.All"
+Connect-MgGraph
 
 # Create an empty array to store user and manager data
 $userManagerData = @()
