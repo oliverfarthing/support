@@ -1,0 +1,7 @@
+Make sure Excel is closed.
+Press the Windows key + R key on your keyboard to open the Run dialog box.
+Paste the following path into the Run dialog box:
+C:\Users\{username}\AppData\Roaming\Microsoft\Templates 
+Press Enter or click OK to open the folder.
+Copy the desired Excel file into this folder.
+After copying, open the Excel file from this location.
