@@ -1,0 +1,32 @@
+# Folder and log file path with timestamp
+$logFolder = "C:\Windows\909376e1-0262-432a-a2cf-68e368a292a7"
+if (-not (Test-Path $logFolder)) {
+    New-Item -Path $logFolder -ItemType Directory -Force | Out-Null
+}
+$logFile = Join-Path $logFolder "log_$(Get-Date -Format 'yyyyMMdd_HHmmss').log"
+
+# Connect
+Connect-ExchangeOnline -AppId "567555555555654345" -CertificateThumbprint "09876543456789098765432345678" -Organization "example.onmicrosoft.com"
+
+Get-Mailbox -ResultSize Unlimited | 
+Where-Object { -not $_.AutoExpandingArchiveEnabled -and $_.RecipientTypeDetails -eq 'UserMailbox' } | 
+ForEach-Object {
+    try {
+        # Enable in-place archive if not already enabled
+        if ($_.ArchiveStatus -ne "Active") {
+            Enable-Mailbox -Identity $_.Identity -Archive -ErrorAction Stop
+            Add-Content -Path $logFile -Value "$(Get-Date) - Enabled in-place archive for $($_.UserPrincipalName)"
+        }
+
+        # Enable auto-expanding archive
+        Enable-Mailbox -Identity $_.Identity -AutoExpandingArchive -ErrorAction Stop
+        $message = "Enabled auto-expanding archive for $($_.UserPrincipalName)"
+        Write-Host $message
+        Add-Content -Path $logFile -Value "$(Get-Date) - $message"
+    }
+    catch {
+        $errorMsg = "$(Get-Date) - ERROR for $($_.UserPrincipalName): $($_.Exception.Message)"
+        Write-Host $errorMsg -ForegroundColor Red
+        Add-Content -Path $logFile -Value $errorMsg
+    }
+}
