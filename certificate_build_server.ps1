@@ -1,5 +1,7 @@
 ﻿$dnsNames = @(
-    ""
+    "example",
+    "*.example",
+    "hello"
 )
 
 $cert = New-SelfSignedCertificate `
