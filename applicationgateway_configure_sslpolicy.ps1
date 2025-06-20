@@ -1,0 +1,1 @@
+﻿az network application-gateway ssl-policy set --gateway-name exampeleagw --resource-group examplerg --policy-type Predefined --preset-policy AppGwSslPolicy20220101

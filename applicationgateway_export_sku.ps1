@@ -1,0 +1,1 @@
+﻿az network application-gateway show --name exampeleagw --resource-group examplerg --query sku --output json
